@@ -32,6 +32,15 @@ helpers do
     User.find_by(id: session[:user_id])
   end
 
+  def dish_liked? (dish_id)
+    current_liked = Like.find_by(dish_id: dish_id)
+    if !!current_user && !!current_liked
+      return true
+    else
+      return false
+    end
+  end
+
 end
 
 #method to avoid writing sql script every time
@@ -67,8 +76,6 @@ get '/' do
     @dishes = Dish.all #limit this to however many you want to show
 
   end
-
-  @totallikes = Like.where(dish_id: 'params[:dish_id]}').count
 
 
   erb :index
@@ -139,14 +146,26 @@ end
 
 
 #create a like
-post '/like' do
+post '/likes' do
   like = Like.new
   like.user_id = current_user.id
   like.dish_id = params[:dish_id]
-  like.save
+  if like.save
+    redirect to '/'
+  end
+  #shorthand - Like.create(user_id: current_user.id, dish_id: params[:dish_id])
 
+  #can't like dish more than once logic inside like.rb, done by AR
+end
+
+delete '/likes' do
+  #this is for multiple records, which shouldn't be the case if you restrict users to one like
+  likes = Like.where(user_id: current_user.id, dish_id: params[:dish_id])
+
+  likes.each do |like|
+    like.destroy
+  end
   redirect to '/'
-
 end
 
 
