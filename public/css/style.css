@@ -1,0 +1,19 @@
+h1 {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+
+.card {
+  flex-grow: 1;
+  max-width: 25%;
+}
+
+.card img {
+  max-width: 90%;
+}

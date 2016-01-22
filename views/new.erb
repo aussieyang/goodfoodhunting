@@ -1,0 +1,27 @@
+<%= @dish.errors.full_messages[0] %>
+
+<form action="/dishes" method="post">
+  <p>
+    <label for="">name</label>
+    <input type="text" name="name">
+  </p>
+
+  <p>
+    <label for="">image url</label>
+    <input type="text" name="image_url">
+  </p>
+
+  <p>
+    <label for="">Dish type ID</label>
+    <select name = "dish_type_id" id="">
+      <!-- Looping through dish_types in database -->
+      <% @dish_types.each do |dish_type| %>
+        <option value="<%= dish_type['id'] %>">
+          <%= dish_type['name'] %>
+        </option>
+      <% end %>
+    </select>
+  </p>
+
+  <button>Create</button>
+</form>

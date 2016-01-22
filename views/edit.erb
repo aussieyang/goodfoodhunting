@@ -1,0 +1,41 @@
+<form action="/dishes/<%= @dish['id'] %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <p>
+    <label for="">Rename To</label>
+    <input type="text" name="name" value="<%= @dish['name'] %>">
+  </p>
+
+  <p>
+    <label for="">New Image URL</label>
+    <input type="text" name="image_url" value="<%= @dish['image_url'] %>">
+  </p>
+
+  <p>
+    <label for="">Dish type ID</label>
+    <select name = "dish_type_id" id="">
+      <!-- Looping through dish_types in database -->
+      <% @dish_types.each do |dish_type| %>
+      <!-- If it matches the value stored in dishes table, have it selected -->
+        <% if dish_type['id'] == @dish['dish_type_id'] %>
+
+        <option value="<%= dish_type['id'] %>" selected>
+          <%= dish_type['name'] %>
+        </option>
+
+        <% else %>
+
+        <option value="<%= dish_type['id'] %>">
+          <%= dish_type['name'] %>
+        </option>
+
+        <% end %>
+
+
+
+      <% end %>
+
+    </select>
+  </p>
+
+  <button>Update</button>
+</form>

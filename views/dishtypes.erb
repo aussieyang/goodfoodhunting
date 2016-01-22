@@ -1,0 +1,5 @@
+<ul>
+  <% @dish_types.each do |dish| %>
+  <li><a href="/?dish_type_id=<%= dish['id'] %>"><%= dish['name'] %></a></li>
+  <% end %>
+</ul>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GFH</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+  <!-- Login form on page only show if session found -->
+  <% if logged_in? %> <!-- see helpers on main.rb for methods -->
+    <form action="/session" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button>Logout</button>
+    </form>
+
+    <p>Logged in as <%= current_user.email %></p>
+  <% end %>
+
+  <%= erb(:_banner) %>
+
+  <%= yield %>
+</body>
+
+</html>

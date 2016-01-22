@@ -1,0 +1,49 @@
+<ul>
+  <li><a href="/">all</a></li>
+  <% @dish_types.each do |dish_type| %>
+  <li><a href="/?dish_type_id=<%= dish_type['id'] %>">
+    <%= dish_type['name'] %></a>
+  </li>
+  <% end %>
+</ul>
+
+<div class = "dish container">
+
+  <% @dishes.each do |dish| %>
+  <div class = "card">
+
+    <img src="<%= dish.image_url %>" alt="">
+
+    <p>
+      <a href="/dishes/<%= dish['id'] %>">
+      <%= dish.name %>
+      </a>
+    </p>
+
+    <p>
+      <a href="/dishes/<%= dish['id'] %>">  <!-- can alter this line to link to restaurant -->
+      <%= dish.venues %>
+      </a>
+    </p>
+
+    <p>
+      <a href="/dishes/<%= dish['id'] %>">  <!-- can alter this line to link to restaurant -->
+      <%= dish.dish_type.name if dish.dish_type %>
+      </a>
+    </p>
+
+    <p> <%= @totallikes  %> </p>
+
+    <% if logged_in? %>
+      <form action="/like" method="post">
+        <input type="hidden" name="dish_id" value="<%= dish.id %>"> <!-- hidden input passing a params back into main.rb under create a link, pulling data from current dish that's in the loop -->
+        <button>Like</button>
+      </form>
+    <% end %>
+
+  </div>
+  <% end %>
+
+</div>
+
+<div><a href="/dishes/new">Add New Dish</a></div>
