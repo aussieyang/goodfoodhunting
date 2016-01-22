@@ -9,11 +9,11 @@ require './models/user'
 require './models/like'
 
 
-# configure :development do |c|
+configure :development do |c|
   require 'sinatra/reloader'
   require 'pry'
-  # c.also_reload './models/*'
-# end
+  c.also_reload './models/*'
+end
 
 enable :sessions
 
